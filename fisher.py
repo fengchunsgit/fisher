@@ -1,21 +1,11 @@
 from flask import Flask,make_response
 app=Flask(__name__)
 app.config.from_object('config')
-
+from helper import is_isbn_or_key
 
 @app.route("/book/search/<q>/<page>")
 def search(q,page):
-    """
-    q,普通关键字和isbn
-    page
-    :return:
-    """
-    isbn_or_key="key"
-    if len(q)==13 and q.isdigit():
-        isbn_or_key="isbn"
-    short_q=q.replace("-","")
-    if "-" in q and len(short_q)==10 and short_q.isdigit():
-        isbn_or_key="isbn"
+    isbn_or_key=is_isbn_or_key(q)
     pass
 
 # app.add_url_rule('/hello',view_func=hello)
